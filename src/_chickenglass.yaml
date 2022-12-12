@@ -1,0 +1,13 @@
+project-name: algonotes
+bib: assets/algonotes.bib
+csl: assets/elsevier-with-titles.csl
+lua-filters: [abstract-section,theorem-environment,algorithm,blockref]
+base-url: https://chaoxuprime.com/algonotes/
+format:
+  html:
+    css: assets/style.css
+    html-math-method: katex
+    toc: true
+    template: assets/template.html
+copy:
+  [assets/style.css]
