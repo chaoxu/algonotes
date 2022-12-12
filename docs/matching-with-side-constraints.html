@@ -41,8 +41,8 @@
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#constraint-on-the-edges"><span
-class="toc-section-number">1</span> Constraint on the edges</a>
+<li><a href="#capacited-matching"><span
+class="toc-section-number">1</span> Capacited matching</a>
 <ul>
 <li><a href="#degree-parity-constraint"><span
 class="toc-section-number">1.1</span> Degree parity constraint</a></li>
@@ -63,7 +63,7 @@ constraint</a></li>
 <li><a href="#degree-set-constraint"><span
 class="toc-section-number">1.8</span> Degree set constraint</a></li>
 <li><a href="#laminar-degree-set-constraint"><span
-class="toc-section-number">1.9</span> laminar degree set
+class="toc-section-number">1.9</span> Laminar degree set
 constraint</a></li>
 <li><a href="#paramodular-set-constraints"><span
 class="toc-section-number">1.10</span> Paramodular set
@@ -79,39 +79,40 @@ class="toc-section-number">1.13</span> Conflict edges</a></li>
 class="toc-section-number">1.14</span> Appear together pairs</a></li>
 <li><a href="#one-of-many"><span class="toc-section-number">1.15</span>
 One of many</a></li>
-<li><a href="#master-slave-matching"><span
-class="toc-section-number">1.16</span> Master slave matching</a></li>
 <li><a href="#master-slave-capacited-matching"><span
-class="toc-section-number">1.17</span> Master slave capacited
+class="toc-section-number">1.16</span> Master slave capacited
 matching</a></li>
-<li><a href="#a-family-of-edges-incident-to-v"><span
-class="toc-section-number">1.18</span> A family of edges incident to
-<span class="math inline">v</span></a></li>
+<li><a href="#simultaneous-assignment-constraint"><span
+class="toc-section-number">1.17</span> Simultaneous assignment
+constraint</a></li>
 </ul></li>
-<li><a href="#constraint-on-delta-m"><span
-class="toc-section-number">2</span> Constraint on <span
-class="math inline">\delta M</span></a>
+<li><a href="#uncapacited-matching"><span
+class="toc-section-number">2</span> Uncapacited matching</a>
 <ul>
+<li><a href="#master-slave-matching"><span
+class="toc-section-number">2.1</span> Master slave matching</a></li>
+<li><a href="#a-family-of-edges-incident-to-v"><span
+class="toc-section-number">2.2</span> A family of edges incident to
+<span class="math inline">v</span></a></li>
 <li><a href="#delta-m-is-a-independent-set-in-a-matroid."><span
-class="toc-section-number">2.1</span> <span class="math inline">\delta
+class="toc-section-number">2.3</span> <span class="math inline">\delta
 M</span> is a independent set in a matroid.</a></li>
 <li><a href="#delta-m-is-independent-in-a-delta-matroid"><span
-class="toc-section-number">2.2</span> <span class="math inline">\delta
+class="toc-section-number">2.4</span> <span class="math inline">\delta
 M</span> is independent in a <span
 class="math inline">\delta</span>-matroid</a></li>
 <li><a href="#bipartite-graph"><span
-class="toc-section-number">2.3</span> Bipartite graph</a></li>
-<li><a href="#simultaneous-assignment-constraint"><span
-class="toc-section-number">2.4</span> Simultaneous assignment
-constraint</a></li>
+class="toc-section-number">2.5</span> Bipartite graph</a></li>
 </ul></li>
 <li><a href="#degree-sequence"><span class="toc-section-number">3</span>
 Degree Sequence</a></li>
+<li><a href="#bibliography">References</a></li>
 </ul>
 </nav>
-<p>The main question is how many constraints we can add and still
-maintain the problem is solvable in polynomial time.</p>
-<p>First, we start with the problem, <em>bidirected graph capacited
+<p>The main question is want kind of constraints we can add to matching
+problem, while maintaining the polynomial time solvability of the
+problem.</p>
+<p>First, we start with the base problem: <em>bidirected graph capacited
 <span class="math inline">b</span>-matching problem</em>, or
 <em>bidirected graph degree constrained subgraph problem</em>.</p>
 <p><span class="math inline">G=(V,E,\chi)</span> is a bidirected graph,
@@ -122,9 +123,10 @@ class="math inline">\sum_{v\in V} |\chi(v,e)| \leq 2</span>.</p>
 class="math inline">c_u:E\to \Z</span> be lower and upper bound on the
 capacity.</p>
 <p>Consider the following integer program, where the input are <span
-class="math inline">G=(V,E,\chi),c_\ell,c_u,w,\ell,u</span>.</p>
+class="math inline">G=(V,E,\chi),c_\ell,c_u,w:E\to \Z</span>, <span
+class="math inline">\ell,u:V\to \Z</span>.</p>
 <p>First, let <span class="math inline">\deg_x(v)=\sum_{e} x(e)
-\chi(v,e)</span>, so this is basically degree of <span
+\chi(v,e)</span>, so this is the degree of <span
 class="math inline">v</span> under the vector <span
 class="math inline">x</span>.</p>
 <p><span class="math display">
@@ -136,8 +138,8 @@ class="math inline">x</span>.</p>
 \\
 \end{align}
 </span></p>
-<p>For short, we call this the base problem.</p>
-<p>We can consider a boolean special case.</p>
+<p>We can also consider the boolean special case, so we avoid the upper
+and lower capacity bounds.</p>
 <p><span class="math display">
 \begin{align}
 &amp; \min_{x\in \mathbb{B}^E} &amp; &amp; \sum_{e} w_e x(e) &amp; \\
@@ -145,16 +147,20 @@ class="math inline">x</span>.</p>
 \forall v\in V \\
 \end{align}
 </span></p>
-<h1 data-number="1" id="constraint-on-the-edges"><span
-class="header-section-number">1</span> Constraint on the edges</h1>
+<h1 data-number="1" id="capacited-matching"><span
+class="header-section-number">1</span> Capacited matching</h1>
 <h2 data-number="1.1" id="degree-parity-constraint"><span
 class="header-section-number">1.1</span> Degree parity constraint</h2>
-<p>Additionally, for some of the vertices <span
-class="math inline">P\subseteq V</span>, we add an additional constraint
-<span class="math display">
+<p>For some of the vertices <span class="math inline">P\subseteq
+V</span>, consider the constraint constraint. <span
+class="math display">
+\begin{align}
 \deg_x(v) \equiv r_v \pmod 2 &amp;~~~ \forall v\in P
+\end{align}
 </span></p>
-<p>Base + degree parity constraint: in P</p>
+<p>Base problem together with degree parity constraint is in <span
+class="math inline">P</span>, because this can be reduced to the base
+problem.</p>
 <h2 data-number="1.2" id="laminar-degree-constraint"><span
 class="header-section-number">1.2</span> Laminar degree constraint</h2>
 <p>Let’s extend <span class="math inline">\deg_x(U) = \sum_{v\in U}
@@ -165,7 +171,9 @@ class="math inline">\mathcal{F}</span>.</p>
 \ell(U) \leq \deg_x(U) \leq u(U) &amp;~~~~ \forall U\in \mathcal{F}
 \end{align}
 </span></p>
-<p>Base + laminar degree constraint: in P</p>
+<p>Base + laminar degree constraint is also in <span
+class="math inline">P</span>. Again, it is because it can be reduced to
+the base problem.</p>
 <h2 data-number="1.3" id="laminar-cut-constraint"><span
 class="header-section-number">1.3</span> Laminar cut constraint</h2>
 <p>Define <span class="math inline">f_x(U) = \sum_{e\in \delta(U), v\in
@@ -176,7 +184,8 @@ class="math inline">\mathcal{F}_C</span>.</p>
 \ell(U) \leq f_x(U) \leq u(U) &amp;~~~~ \forall U\in \mathcal{F}_C
 \end{align}
 </span></p>
-<p>Base + laminar cut constraint: I don’t know</p>
+<p>Base + laminar cut constraint: I don’t know. I suspect it is in
+P.</p>
 <h2 data-number="1.4" id="laminar-parity-constraint"><span
 class="header-section-number">1.4</span> Laminar parity constraint</h2>
 <p>Consider a laminar family <span
@@ -188,6 +197,7 @@ class="math inline">U\in \mathcal{P}</span>.</p>
 \deg_x(U) \equiv r_U \pmod 2 &amp;~~~~ \forall U\in \mathcal{P}
 \end{align}
 </span></p>
+<p>Base + laminar parity constraint: don’t know</p>
 <h2 data-number="1.5" id="edge-parity-constraint"><span
 class="header-section-number">1.5</span> Edge parity constraint</h2>
 <p><span class="math inline">P_E</span> a subset of edges <span
@@ -219,6 +229,10 @@ class="math display">
 a_i \leq x(S_i) \leq b_i &amp;~~~~ \forall i\in [k]
 \end{align}
 </span></p>
+<p>The special case when <span class="math inline">a_i=b_i</span> and
+<span class="math inline">k=1</span>, is the (weighted) exact matching
+problem <span class="citation" data-cites="PapadimitriouY82">[1]</span>,
+which is sovable in randomized polynomial time.</p>
 <h2 data-number="1.8" id="degree-set-constraint"><span
 class="header-section-number">1.8</span> Degree set constraint</h2>
 <p>For each vertex, we have a set <span class="math inline">I_v</span>,
@@ -231,7 +245,7 @@ such that. <span class="math display">
 arbitrary. However, one can requires the gap to be at most 1. This is
 sometimes called generalzied matching.</p>
 <h2 data-number="1.9" id="laminar-degree-set-constraint"><span
-class="header-section-number">1.9</span> laminar degree set
+class="header-section-number">1.9</span> Laminar degree set
 constraint</h2>
 <p>There is a laminar family <span
 class="math inline">\mathcal{F}</span>, such that we have constraint
@@ -240,7 +254,7 @@ class="math inline">\mathcal{F}</span>, such that we have constraint
 \deg_x(U) \in I_U &amp;~~~~ \forall U\in \mathcal{F}
 \end{align}
 </span></p>
-<p>Again, probably polynomial time solvable if gap is at most 1.</p>
+<p>Probably polynomial time solvable if gap is at most 1.</p>
 <h2 data-number="1.10" id="paramodular-set-constraints"><span
 class="header-section-number">1.10</span> Paramodular set
 constraints</h2>
@@ -295,57 +309,72 @@ class="header-section-number">1.15</span> One of many</h2>
 class="math inline">S_1,\ldots,S_k</span>, such that at least one edge
 in <span class="math inline">S_i</span> must be chosen. Probably can be
 reduced to 3D matching or something.</p>
-<h2 data-number="1.16" id="master-slave-matching"><span
-class="header-section-number">1.16</span> Master slave matching</h2>
+<h2 data-number="1.16" id="master-slave-capacited-matching"><span
+class="header-section-number">1.16</span> Master slave capacited
+matching</h2>
 <p>a directed graph <span class="math inline">D</span> such that if
+<span class="math inline">(u,v)\in D</span>, then if <span
+class="math inline">\deg(u)\leq \deg(v)</span>.</p>
+<p>Maybe this is also sovable in polynomial time if each component of
+<span class="math inline">D</span> has size <span
+class="math inline">2</span>?</p>
+<h2 data-number="1.17" id="simultaneous-assignment-constraint"><span
+class="header-section-number">1.17</span> Simultaneous assignment
+constraint</h2>
+<p>A much stronger generalization exists, this time, we consider
+simultaneously solve multiple matching problems at the same time, but
+under the laminar conditions. <a
+href="https://arxiv.org/abs/2105.09439">The Simultaneous Assignment
+Problem</a></p>
+<h1 data-number="2" id="uncapacited-matching"><span
+class="header-section-number">2</span> Uncapacited matching</h1>
+<p>This is when we know each edge can either be picked or not. Also, a
+matched vertex can also be defined (degree at least <span
+class="math inline">1</span>). So we define <span
+class="math inline">\partial M</span> of a set of edges <span
+class="math inline">M</span> is the set of vertices with non-zero
+degree.</p>
+<h2 data-number="2.1" id="master-slave-matching"><span
+class="header-section-number">2.1</span> Master slave matching</h2>
+<p>A directed graph <span class="math inline">D</span> such that if
 <span class="math inline">(u,v)\in D</span>, then if <span
 class="math inline">u</span> matched, <span class="math inline">v</span>
 has to be matched. Solvable in polynomial time if each component of
 <span class="math inline">D</span> is size <span
 class="math inline">2</span>. This is a special case of delta matroid
-matching.</p>
-<h2 data-number="1.17" id="master-slave-capacited-matching"><span
-class="header-section-number">1.17</span> Master slave capacited
-matching</h2>
-<p>a directed graph <span class="math inline">D</span> such that if
-<span class="math inline">(u,v)\in D</span>, then if <span
-class="math inline">\deg(u)\leq \deg(v)</span>.</p>
-<p>Probably solvable in polynomial time?</p>
-<h2 data-number="1.18" id="a-family-of-edges-incident-to-v"><span
-class="header-section-number">1.18</span> A family of edges incident to
+matching. <span class="citation" data-cites="KakimuraT14">[2]</span></p>
+<h2 data-number="2.2" id="a-family-of-edges-incident-to-v"><span
+class="header-section-number">2.2</span> A family of edges incident to
 <span class="math inline">v</span></h2>
 <p>Consider there is a <span class="math inline">\mathcal{F}_v</span>,
 such that <span class="math inline">\delta_x(v) \in
 \mathcal{F}_v</span>.</p>
 <p>If each <span class="math inline">\mathcal{F}_v</span> is a matroid,
-then this is the matroid matching problem. NP-hard for general
-matroid.</p>
+then this is the matroid matching problem. NP-hard for general matroid.
+Solvable for linear matroid.</p>
 <p>We can even consider when each <span
-class="math inline">\mathcal{F}_v</span> is a even delta-matroid.</p>
-<h1 data-number="2" id="constraint-on-delta-m"><span
-class="header-section-number">2</span> Constraint on <span
-class="math inline">\delta M</span></h1>
-<h2 data-number="2.1"
+class="math inline">\mathcal{F}_v</span> is a even delta-matroid?</p>
+<h2 data-number="2.3"
 id="delta-m-is-a-independent-set-in-a-matroid."><span
-class="header-section-number">2.1</span> <span
+class="header-section-number">2.3</span> <span
 class="math inline">\delta M</span> is a independent set in a
 matroid.</h2>
 <p>This is the matroid matching problem, NP-hard in general. Solvable in
-polynomial time for linear matroids(linear matroid parity problem),
+polynomial time for linear matroids (linear matroid parity problem),
 laminar matroid (hierarchical b-matching).</p>
-<h2 data-number="2.2"
+<h2 data-number="2.4"
 id="delta-m-is-independent-in-a-delta-matroid"><span
-class="header-section-number">2.2</span> <span
+class="header-section-number">2.4</span> <span
 class="math inline">\delta M</span> is independent in a <span
 class="math inline">\delta</span>-matroid</h2>
 <p>Solvable in polynomial time if <span
 class="math inline">\delta</span>-matroid based on symmetric matrix.</p>
-<h2 data-number="2.3" id="bipartite-graph"><span
-class="header-section-number">2.3</span> Bipartite graph</h2>
+<h2 data-number="2.5" id="bipartite-graph"><span
+class="header-section-number">2.5</span> Bipartite graph</h2>
 <p>If there are two matroid, defined on each bipartition, <span
-class="math inline">\delta M\cap A</span> and <span
-class="math inline">\delta M \cap B</span> are independent. Solvable in
-polynomial time.</p>
+class="math inline">\partial M\cap A</span> and <span
+class="math inline">\partial M \cap B</span> are independent. Solvable
+in polynomial time.</p>
 <p>Given a weighted bipartite graph and there are two matroids on each
 partition class of the vertices, find the largest weight maching such
 that the matched vertices is a independent set in each of the
@@ -367,18 +396,13 @@ constraint.</p>
 <p>Both generalizations are by Satoru Fujishige.</p>
 <p>It seems most of them are just special case of submodular flows.</p>
 <p>https://www.narcis.nl/publication/RecordID/oai:cwi.nl:10159</p>
-<h2 data-number="2.4" id="simultaneous-assignment-constraint"><span
-class="header-section-number">2.4</span> Simultaneous assignment
-constraint</h2>
-<p>A much stronger generalization exists, this time, we consider
-simultaneously solve multiple matching problems at the same time, but
-under the laminar conditions. <a
-href="https://arxiv.org/abs/2105.09439">The Simultaneous Assignment
-Problem</a></p>
 <h1 data-number="3" id="degree-sequence"><span
 class="header-section-number">3</span> Degree Sequence</h1>
 <p>For a fixed sequence of vertices <span
-class="math inline">v_1,\ldots,v_n</span>. - <a
+class="math inline">v_1,\ldots,v_n</span>, we are interested in making
+sure the degree sequence over them satisfies certain property.</p>
+<ul>
+<li><a
 href="https://www.zhihu.com/question/345016360/answer/818692005">Lexicographic
 best matching</a>. Find a matching that minimizes <span
 class="math inline">(\deg_x(v_1),\ldots,\deg_x(v_n))</span> in the
@@ -388,8 +412,28 @@ class="math inline">O(n)</span> calls to perfect matching algorithm. Or
 <span class="math inline">O(1)</span> call to max weight perfect
 matching, where weights have bit length <span
 class="math inline">\Omega(n)</span>. this zhihu thing seems to be
-relevent https://www.zhihu.com/question/394684176/answer/1231445284 -
-<span class="math inline">(\deg_x(v_1),\ldots,\deg_x(v_n))</span> is
-non-decreasing?</p>
+relevent https://www.zhihu.com/question/394684176/answer/1231445284</li>
+<li>Make sure <span
+class="math inline">(\deg_x(v_1),\ldots,\deg_x(v_n))</span> is
+non-decreasing? I think it is hard, because this seems to be
+master-slave matching but with a very large component.</li>
+</ul>
+<h1 class="unnumbered" id="bibliography">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-PapadimitriouY82" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div
+class="csl-right-inline">C.H. Papadimitriou, M. Yannakakis, The
+complexity of restricted spanning tree problems, J. ACM. 29 (1982)
+285–309. https://doi.org/<a
+href="https://doi.org/10.1145/322307.322309">10.1145/322307.322309</a>.</div>
+</div>
+<div id="ref-KakimuraT14" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">N.
+Kakimura, M. Takamatsu, Matching problems with delta-matroid
+constraints, SIAM Journal on Discrete Mathematics. 28 (2014) 942–961.
+https://doi.org/<a
+href="https://doi.org/10.1137/110860070">10.1137/110860070</a>.</div>
+</div>
+</div>
 </body>
 </html>
