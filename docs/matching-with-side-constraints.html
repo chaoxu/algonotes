@@ -9,21 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.js" integrity="sha384-97gW6UIJxnlKemYavrqDHSX3SiygeOwIZhwyOKRfSaf0JWKRVj9hLASHgFTzT+0O" crossorigin="anonymous"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      var macros={
-              "\\C":"\\mathbb{C}",
-              "\\F":"\\mathbb{F}",
-              "\\e": "\\varepsilon",
-              "\\eps": "\\varepsilon",
-              "\\mex": "\\mathop{\\operatorname{mex}}",
-              "\\lcm": "\\mathop{\\operatorname{lcm}}",
-              "\\dist": "\\mathop{\\operatorname{dist}}",
-              "\\bigtriangleright": "{\\mathop{\\Large \\triangleright}}",
-              "\\bigtriangleleft": "{\\mathop{\\Large \\triangleleft}}",
-              '\\set':'\\left\\{ #1 \\right\\}',
-              '\\floor':'\\left\\lfloor #1 \\right\\rfloor',
-              '\\ceil':'\\left\\lceil #1 \\right\\rceil',
-              '\\abs':'\\left\\| #1 \\right\\|'
-              }
+      var macros={"\\C": "\\mathbb{C}", "\\F": "\\mathbb{F}", "\\e": "\\varepsilon", "\\eps": "\\varepsilon", "\\mex": "\\mathop{\\operatorname{mex}}", "\\lcm": "\\mathop{\\operatorname{lcm}}", "\\dist": "\\mathop{\\operatorname{dist}}", "\\bigtriangleright": "{\\mathop{\\Large \\triangleright}}", "\\bigtriangleleft": "{\\mathop{\\Large \\triangleleft}}", "\\set": "\\left\\{ #1 \\right\\}", "\\floor": "\\left\\lfloor #1 \\right\\rfloor", "\\ceil": "\\left\\lceil #1 \\right\\rceil", "\\abs": "\\left\\| #1 \\right\\|"};
     var mathElements = document.getElementsByClassName("math");
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
@@ -479,7 +465,7 @@ class="math inline">O(n)</span> calls to perfect matching algorithm. Or
 <span class="math inline">O(1)</span> call to max weight perfect
 matching, where weights have bit length <span
 class="math inline">\Omega(n)</span>. this zhihu thing seems to be
-relevent https://www.zhihu.com/question/394684176/answer/1231445284</li>
+relevant https://www.zhihu.com/question/394684176/answer/1231445284</li>
 <li>Make sure <span
 class="math inline">(\deg_x(v_1),\ldots,\deg_x(v_n))</span> is
 non-decreasing? I think it is hard, because this seems to be
