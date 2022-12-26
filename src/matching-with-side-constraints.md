@@ -4,7 +4,7 @@ title: Matching with some common side constraints
 
 The main question is want kind of constraints we can add to matching problem, while maintaining the polynomial time solvability of the problem.
 
-First, we start with the base problem: *bidirected graph capacited $b$-matching problem*, or *bidirected graph degree constrained subgraph problem*.
+First, we start with the base problem: *bidirected graph capacitated $b$-matching problem*, or *bidirected graph degree constrained subgraph problem*.
 
 $G=(V,E,\chi)$ is a bidirected graph, if $\chi:V\times E\to \{-2,-1,0,1,2\}$ such that for any $e\in E$, $\sum_{v\in V} |\chi(v,e)| \leq 2$.
 
@@ -32,11 +32,11 @@ We can also consider the boolean special case, so we avoid the upper and lower c
 \]
 
 
-# Capacited matching
+# Capacitated matching
 
 ## Degree parity constraint
 
-For some of the vertices $P\subseteq V$, consider the constraint constraint.
+For some vertices $P\subseteq V$, consider the constraint.
 \[
 \begin{align}
 \deg_x(v) \equiv r_v \pmod 2 &~~~ \forall v\in P
@@ -106,7 +106,7 @@ a_i \leq x(S_i) \leq b_i &~~~~ \forall i\in [k]
 \end{align}
 \]
 
-The special case when $a_i=b_i$ and $k=1$, is the (weighted) exact matching problem [@PapadimitriouY82], which is sovable in randomized polynomial time. 
+The special case when $a_i=b_i$ and $k=1$, is the (weighted) exact matching problem [@PapadimitriouY82], which is solvable in randomized polynomial time. 
 
 ## Degree set constraint
 
@@ -117,12 +117,12 @@ For each vertex, we have a set $I_v$, such that.
 \end{align}
 \]
 
-It is NP-hard if $I_v$ can be arbitrary. However, one can requires the gap to be at most 1.
-This is sometimes called generalzied matching.
+It is NP-hard if $I_v$ can be arbitrary. However, one can require the gap to be at most 1.
+This is sometimes called generalized matching.
 
 ## Laminar degree set constraint
 
-There is a laminar family $\mathcal{F}$, such that we have constraint
+There is a laminar family $\mathcal{F}$, such that we have constraints
 \[
 \begin{align}
 \deg_x(U) \in I_U &~~~~ \forall U\in \mathcal{F}
@@ -168,16 +168,16 @@ There are pairs of edges that must appear together. NP-hard. See [this](https://
 ## One of many
 There are set of edges $S_1,\ldots,S_k$, such that at least one edge in $S_i$ must be chosen. Probably can be reduced to 3D matching or something. 
 
-## Master slave capacited matching
+## Master slave capacitated matching
 a directed graph $D$ such that if $(u,v)\in D$, then if $\deg(u)\leq \deg(v)$. 
 
-Maybe this is also sovable in polynomial time if each component of $D$ has size $2$? 
+Maybe this is also solvable in polynomial time if each component of $D$ has size $2$? 
 
 ## Simultaneous assignment constraint
 
-A much stronger generalization exists, this time, we consider simultaneously solve multiple matching problems at the same time, but under the laminar conditions. [The Simultaneous Assignment Problem](https://arxiv.org/abs/2105.09439)
+A much stronger generalization exists, this time, we consider simultaneously solve multiple matching problems at the same time, but under the laminar conditions [@Madarasi21]. 
 
-# Uncapacited matching
+# Uncapacitated matching
 This is when we know each edge can either be picked or not. Also, a matched vertex can also be defined (degree at least $1$). So we define $\partial M$ of a set of edges $M$ is the set of vertices with non-zero degree.
 
 ## Master slave matching
@@ -188,7 +188,7 @@ Consider there is a $\mathcal{F}_v$, such that $\delta_x(v) \in \mathcal{F}_v$.
 
 If each $\mathcal{F}_v$ is a matroid, then this is the matroid matching problem. NP-hard for general matroid. Solvable for linear matroid.
 
-We can even consider when each $\mathcal{F}_v$ is a even delta-matroid? 
+We can even consider when each $\mathcal{F}_v$ is an even delta-matroid? 
 
 ## $\delta M$ is a independent set in a matroid. 
 
@@ -201,11 +201,11 @@ Solvable in polynomial time if $\delta$-matroid based on symmetric matrix.
 ## Bipartite graph
 If there are two matroid, defined on each bipartition, $\partial M\cap A$ and $\partial M \cap B$ are independent. Solvable in polynomial time.
 
-Given a weighted bipartite graph and there are two matroids on each partition class of the vertices, find the largest weight maching such that the matched vertices is a independent set in each of the matroid.
+Given a weighted bipartite graph and there are two matroids on each partition class of the vertices, find the largest weight matching such that the matched vertices is an independent set in each of the matroid. 
 
-The paper is not easy to find. It is the work of Masao Iri and Nobuaki Tomizawa, [an algorithm for finding an optimal independent assignment](http://www.orsj.or.jp/~archive/pdf/e_mag/Vol.19_01_032.pdf)
+See the work of Masao Iri and Nobuaki Tomizawa [@IriT76].
 
-The result can be generalized. There is a directed graph, and two disjoint set of vertices $S$ and $T$, find a max weight edge disjoint paths such that the end points forms an matroid in both $S$ and $T$. 
+The result can be generalized. There is a directed graph, and two disjoint set of vertices $S$ and $T$, find a max weight edge disjoint paths such that the end points forms a matroid in both $S$ and $T$. 
 
 It can be generalized even further, into independent flows. Directed graph with two disjoint set of vertices $S$ and $T$. We require the outgoing flow and incoming flow satisfies a polymatroid constraint.
 
@@ -215,9 +215,9 @@ It seems most of them are just special case of submodular flows.
 
 https://www.narcis.nl/publication/RecordID/oai:cwi.nl:10159
 
-# Degree Sequence
+# Degree Sequence 
 
 For a fixed sequence of vertices $v_1,\ldots,v_n$, we are interested in making sure the degree sequence over them satisfies certain property. 
 
- - [Lexicographic best matching](https://www.zhihu.com/question/345016360/answer/818692005). Find a matching that minimizes $(\deg_x(v_1),\ldots,\deg_x(v_n))$ in the lexicographical order. Is it possible to find it in $O(nm)$? Currently, this reduces to $O(n)$ calls to perfect matching algorithm. Or $O(1)$ call to max weight perfect matching, where weights have bit length $\Omega(n)$. this zhihu thing seems to be relevent https://www.zhihu.com/question/394684176/answer/1231445284
+ - [Lexicographic best matching](https://www.zhihu.com/question/345016360/answer/818692005). Find a matching that minimizes $(\deg_x(v_1),\ldots,\deg_x(v_n))$ in the lexicographical order. Is it possible to find it in $O(nm)$? Currently, this reduces to $O(n)$ calls to perfect matching algorithm. Or $O(1)$ call to max weight perfect matching, where weights have bit length $\Omega(n)$. this zhihu thing seems to be relevant https://www.zhihu.com/question/394684176/answer/1231445284
  - Make sure $(\deg_x(v_1),\ldots,\deg_x(v_n))$ is non-decreasing? I think it is hard, because this seems to be master-slave matching but with a very large component.
