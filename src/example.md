@@ -49,7 +49,7 @@ However, if we need to refer to a theorem later, we would have to take extra car
 
 Having markdown inside title? Fine, as long as it is not too crazy. Anything inline would work.
 
-::: {.Conjecture title="$x^2$ and reference [@aksin] allowed in title"}
+::: {.Conjecture title="$x^2$ and reference [@KakimuraT14] allowed in title"}
 
   Seems like it is working.
 
@@ -88,7 +88,7 @@ And we can refer to it too! Like this: [@alg:euclidian] and @alg:euclidian.
 
 # Citations
 
-We can also do citations, citing one element [@westfahl:space]. How about cite two elements [@aksin; @westfahl:space].
+We can also do citations, citing one element [@KakimuraT14]. How about cite two elements [@KakimuraT14; @PapadimitriouY82].
 
 # Footnotes
 
