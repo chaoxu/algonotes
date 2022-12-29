@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Matching with some common side constraints</title>
   <link rel="stylesheet" href="assets/style.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.js" integrity="sha384-97gW6UIJxnlKemYavrqDHSX3SiygeOwIZhwyOKRfSaf0JWKRVj9hLASHgFTzT+0O" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      var macros={"\\C": "\\mathbb{C}", "\\F": "\\mathbb{F}", "\\e": "\\varepsilon", "\\eps": "\\varepsilon", "\\mex": "\\mathop{\\operatorname{mex}}", "\\lcm": "\\mathop{\\operatorname{lcm}}", "\\dist": "\\mathop{\\operatorname{dist}}", "\\bigtriangleright": "{\\mathop{\\Large \\triangleright}}", "\\bigtriangleleft": "{\\mathop{\\Large \\triangleleft}}", "\\set": "\\left\\{ #1 \\right\\}", "\\floor": "\\left\\lfloor #1 \\right\\rfloor", "\\ceil": "\\left\\lceil #1 \\right\\rceil", "\\abs": "\\left\\| #1 \\right\\|"};
+    var macros={"\\C": "\\mathbb{C}", "\\F": "\\mathbb{F}", "\\e": "\\varepsilon", "\\eps": "\\varepsilon", "\\mex": "\\mathop{\\operatorname{mex}}", "\\lcm": "\\mathop{\\operatorname{lcm}}", "\\dist": "\\mathop{\\operatorname{dist}}", "\\bigtriangleright": "{\\mathop{\\Large \\triangleright}}", "\\bigtriangleleft": "{\\mathop{\\Large \\triangleleft}}", "\\set": "\\left\\{ #1 \\right\\}", "\\floor": "\\left\\lfloor #1 \\right\\rfloor", "\\ceil": "\\left\\lceil #1 \\right\\rceil", "\\abs": "\\left\\| #1 \\right\\|"};
     var mathElements = document.getElementsByClassName("math");
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
       if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false, macros:macros} );
     }}});
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css" integrity="sha384-Juol1FqnotbkyZUT5Z7gUPjQ9gzlwCENvUZTpQBAPxtusdwFLRy382PSDx5UUJ4/" crossorigin="anonymous">
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -27,92 +27,72 @@
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#capacitated-matching" id="toc-capacitated-matching"><span
+<li><a href="#capacitated-matching"><span
 class="toc-section-number">1</span> Capacitated matching</a>
 <ul>
-<li><a href="#degree-parity-constraint"
-id="toc-degree-parity-constraint"><span
+<li><a href="#degree-parity-constraint"><span
 class="toc-section-number">1.1</span> Degree parity constraint</a></li>
-<li><a href="#laminar-degree-constraint"
-id="toc-laminar-degree-constraint"><span
+<li><a href="#laminar-degree-constraint"><span
 class="toc-section-number">1.2</span> Laminar degree constraint</a></li>
-<li><a href="#laminar-cut-constraint"
-id="toc-laminar-cut-constraint"><span
+<li><a href="#laminar-cut-constraint"><span
 class="toc-section-number">1.3</span> Laminar cut constraint</a></li>
-<li><a href="#laminar-parity-constraint"
-id="toc-laminar-parity-constraint"><span
+<li><a href="#laminar-parity-constraint"><span
 class="toc-section-number">1.4</span> Laminar parity constraint</a></li>
-<li><a href="#edge-parity-constraint"
-id="toc-edge-parity-constraint"><span
+<li><a href="#edge-parity-constraint"><span
 class="toc-section-number">1.5</span> Edge parity constraint</a></li>
-<li><a href="#edge-set-parity-constraint"
-id="toc-edge-set-parity-constraint"><span
+<li><a href="#edge-set-parity-constraint"><span
 class="toc-section-number">1.6</span> Edge set parity
 constraint</a></li>
-<li><a href="#edge-set-cardinality-constraint"
-id="toc-edge-set-cardinality-constraint"><span
+<li><a href="#edge-set-cardinality-constraint"><span
 class="toc-section-number">1.7</span> Edge set cardinality
 constraint</a></li>
-<li><a href="#degree-set-constraint"
-id="toc-degree-set-constraint"><span
+<li><a href="#degree-set-constraint"><span
 class="toc-section-number">1.8</span> Degree set constraint</a></li>
-<li><a href="#laminar-degree-set-constraint"
-id="toc-laminar-degree-set-constraint"><span
+<li><a href="#laminar-degree-set-constraint"><span
 class="toc-section-number">1.9</span> Laminar degree set
 constraint</a></li>
-<li><a href="#paramodular-set-constraints"
-id="toc-paramodular-set-constraints"><span
+<li><a href="#paramodular-set-constraints"><span
 class="toc-section-number">1.10</span> Paramodular set
 constraints</a></li>
-<li><a href="#submodular-set-constraints"
-id="toc-submodular-set-constraints"><span
+<li><a href="#submodular-set-constraints"><span
 class="toc-section-number">1.11</span> Submodular set
 constraints</a></li>
-<li><a href="#matroid-edge-constraints"
-id="toc-matroid-edge-constraints"><span
+<li><a href="#matroid-edge-constraints"><span
 class="toc-section-number">1.12</span> Matroid edge constraints</a></li>
-<li><a href="#conflict-edges" id="toc-conflict-edges"><span
+<li><a href="#conflict-edges"><span
 class="toc-section-number">1.13</span> Conflict edges</a></li>
-<li><a href="#appear-together-pairs"
-id="toc-appear-together-pairs"><span
+<li><a href="#appear-together-pairs"><span
 class="toc-section-number">1.14</span> Appear together pairs</a></li>
-<li><a href="#one-of-many" id="toc-one-of-many"><span
-class="toc-section-number">1.15</span> One of many</a></li>
-<li><a href="#master-slave-capacitated-matching"
-id="toc-master-slave-capacitated-matching"><span
+<li><a href="#one-of-many"><span class="toc-section-number">1.15</span>
+One of many</a></li>
+<li><a href="#master-slave-capacitated-matching"><span
 class="toc-section-number">1.16</span> Master slave capacitated
 matching</a></li>
-<li><a href="#simultaneous-assignment-constraint"
-id="toc-simultaneous-assignment-constraint"><span
+<li><a href="#simultaneous-assignment-constraint"><span
 class="toc-section-number">1.17</span> Simultaneous assignment
 constraint</a></li>
 </ul></li>
-<li><a href="#uncapacitated-matching"
-id="toc-uncapacitated-matching"><span
+<li><a href="#uncapacitated-matching"><span
 class="toc-section-number">2</span> Uncapacitated matching</a>
 <ul>
-<li><a href="#master-slave-matching"
-id="toc-master-slave-matching"><span
+<li><a href="#master-slave-matching"><span
 class="toc-section-number">2.1</span> Master slave matching</a></li>
-<li><a href="#a-family-of-edges-incident-to-v"
-id="toc-a-family-of-edges-incident-to-v"><span
+<li><a href="#a-family-of-edges-incident-to-v"><span
 class="toc-section-number">2.2</span> A family of edges incident to
 <span class="math inline">v</span></a></li>
-<li><a href="#delta-m-is-a-independent-set-in-a-matroid."
-id="toc-delta-m-is-a-independent-set-in-a-matroid."><span
+<li><a href="#delta-m-is-a-independent-set-in-a-matroid."><span
 class="toc-section-number">2.3</span> <span class="math inline">\delta
 M</span> is a independent set in a matroid.</a></li>
-<li><a href="#delta-m-is-independent-in-a-delta-matroid"
-id="toc-delta-m-is-independent-in-a-delta-matroid"><span
+<li><a href="#delta-m-is-independent-in-a-delta-matroid"><span
 class="toc-section-number">2.4</span> <span class="math inline">\delta
 M</span> is independent in a <span
 class="math inline">\delta</span>-matroid</a></li>
-<li><a href="#bipartite-graph" id="toc-bipartite-graph"><span
+<li><a href="#bipartite-graph"><span
 class="toc-section-number">2.5</span> Bipartite graph</a></li>
 </ul></li>
-<li><a href="#degree-sequence" id="toc-degree-sequence"><span
-class="toc-section-number">3</span> Degree Sequence</a></li>
-<li><a href="#bibliography" id="toc-bibliography">References</a></li>
+<li><a href="#degree-sequence"><span class="toc-section-number">3</span>
+Degree Sequence</a></li>
+<li><a href="#bibliography">References</a></li>
 </ul>
 </nav>
 <p>The main question is want kind of constraints we can add to matching
